@@ -1,0 +1,22 @@
+
+/iletisim /contact.html 200
+/iletişim /contact.html 200
+/hakkimizda /index.html#about 200
+/hakkımızda /index.html#about 200
+
+/aerodogan /index.html#aero 200
+/hidrodogan /index.html#hidro 200
+/gokdogan /index.html#gok 200
+/elektrodogan /index.html#elektro 200
+
+/sponsor /contact.html#sponsors 200
+/sponsorluk /contact.html#sponsors 200
+
+https://www.aerodogan.com/* https://aerodogan.com/:splat 301!
+
+http://aerodogan.com/* https://aerodogan.com/:splat 301!
+
+/contact /contact.html 301
+/index /index.html 301
+/home / 301
+/ana-sayfa / 301
