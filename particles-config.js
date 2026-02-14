@@ -3,6 +3,11 @@ function getParticlesColor() {
     return document.documentElement.classList.contains('light') ? '#0b1220' : '#00d4ff';
 }
 
+function getParticlesCount() {
+    const isPhone = window.matchMedia('(max-width: 768px)').matches;
+    return isPhone ? 34 : 100;
+}
+
 function hexToRgbObject(hex) {
     const normalized = hex.replace('#', '');
     const fullHex = normalized.length === 3
@@ -37,7 +42,7 @@ function applyParticlesThemeColor() {
 particlesJS("particles-js", {
     "particles": {
         "number": {
-            "value": 100,
+            "value": getParticlesCount(),
             "density": {
                 "enable": true,
                 "value_area": 800

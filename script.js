@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentIndex = 0;
     let autoplayInterval;
-    const autoplayDelay = 5000; // 5 saniye
+    const autoplayDelay = 8000; // 8 saniye
 
     // Dot'ları oluştur
     slides.forEach((_, index) => {
