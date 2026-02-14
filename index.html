@@ -44,11 +44,23 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="preload" as="image" href="images/norway_3.jpeg">
+
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'light') {
+                    document.documentElement.classList.add('light');
+                }
+            } catch (e) { }
+        })();
+    </script>
 
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <div id="particles-js"></div>
     <div class="global-bg">
         <div class="global-mesh"></div>
         <div class="orb orb-top-left"></div>
@@ -67,6 +79,7 @@
             <ul class="nav-menu-contact">
                 <li><a href="index.html" class="nav-link active">Ana Sayfa</a></li>
                 <li><a href="contact.html" class="nav-link">İletişim</a></li>
+                <li><button id="themeToggle" class="theme-toggle" type="button" aria-label="Temayı değiştir">TEMA</button></li>
             </ul>
         </div>
     </nav>
@@ -82,6 +95,58 @@
                 <h1 class="hero-title-compact">DCFL Teknoloji Takımları</h1>
                 <p class="hero-subtitle-compact">"İstikbal Göklerdedir."</p>
             </div>
+        </section>
+
+        <!-- Events Slider Section -->
+        <section class="events-section">
+            <h2 class="section-title-compact">Başarılarımız</h2>
+            <div class="events-slider">
+                <button class="slider-arrow slider-prev" aria-label="Önceki">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <!-- TAC Challenge -->
+                        <div class="event-slide" data-target="hidro" data-scroll-to="tac-challenge">
+                            <div class="event-image">
+                                <img src="images/norway_3.jpeg" alt="TAC Challenge" fetchpriority="high" loading="eager">
+                                <div class="event-overlay"></div>
+                            </div>
+                            <div class="event-content">
+                                <span class="event-badge">Yarışma</span>
+                                <h3 class="event-title">TAC Challenge</h3>
+                                <p class="event-description">İnsansız su altı sistemleri yarışması. Hidrodoğan takımımızla katıldık.</p>
+                                <button class="event-btn">Detayları Gör</button>
+                            </div>
+                        </div>
+
+                        <!-- Mavi Vatan -->
+                        <div class="event-slide" data-target="hidro" data-scroll-to="mavi-vatan">
+                            <div class="event-image">
+                                <img src="images/mavi1.jpeg" alt="Mavi Vatan" loading="eager">
+                                <div class="event-overlay"></div>
+                            </div>
+                            <div class="event-content">
+                                <span class="event-badge">Yarışma</span>
+                                <h3 class="event-title">Mavi Vatan</h3>
+                                <p class="event-description">Deniz teknolojileri ve su altı robotik sistemleri yarışması.</p>
+                                <button class="event-btn">Detayları Gör</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-arrow slider-next" aria-label="Sonraki">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="slider-dots"></div>
         </section>
 
         <section class="interactive-section">
@@ -103,7 +168,7 @@
                                 </div>
                                 <div class="details-title-group">
                                     <h2 class="details-title">Aerodoğan</h2>
-                                    <p class="details-tagline">İnsansız Hava Araçları(İHA)</p>
+                                    <p class="details-tagline">İnsansız Hava Araçları (İHA)</p>
                                 </div>
                                 <button class="close-btn" aria-label="Kapat">×</button>
                             </div>
@@ -139,7 +204,7 @@
                                         <div class="achievement-icon">🏆</div>
                                         <div class="achievement-text">
                                             <h4>Teknofest SİHA Yarışması</h4>
-                                            <p>1 kez Yarı Finallere kaldı</p>
+                                            <p>3 kez Yarı Finallere kaldı</p>
                                             <span class="achievement-year">2023</span>
                                         </div>
                                     </div>
@@ -147,7 +212,7 @@
                                         <div class="achievement-icon">✈️</div>
                                         <div class="achievement-text">
                                             <h4>Teknofest Serbest Görev İHA Yarışması</h4>
-                                            <p>2 kez Yarı Finallere kaldı</p>
+                                            <p>3 kez Yarı Finallere kaldı</p>
                                             <span class="achievement-year">2023-2024</span>
                                         </div>
                                     </div>
@@ -181,7 +246,7 @@
                             <div class="details-section">
                                 <h3>Amacımız</h3>
                                 <p>Su altı teknolojileri geliştirmek ve deniz araçları ve su altı robotik sistemlerinde
-                                    Türkiye'yi dünya standartlarına taşımak.Ayrıca ülkemizde yapılan sualtı
+                                    Türkiye'yi dünya standartlarına taşımak. Ayrıca ülkemizde yapılan su altı
                                     yarışmalarında derece elde etmek</p>
                             </div>
 
@@ -189,7 +254,7 @@
                                 <h3>Ne Yapıyoruz?</h3>
                                 <ul>
                                     <li>Su altı robotik sistemleri (ROV/AUV) tasarımı</li>
-                                    <li>Deniz araçları ve insansız sualtı araçları</li>
+                                    <li>Deniz araçları ve insansız su altı araçları</li>
                                     <li>Hidrodinamik analiz ve optimizasyon</li>
                                     <li>Su altı görüntüleme ve sensör sistemleri</li>
                                     <li>Deniz ortamı simülasyon yazılımları</li>
@@ -205,7 +270,7 @@
                             <div class="details-section achievements-list-section">
                                 <h3>Ödüller ve Dereceler</h3>
 
-                                <div class="featured-achievement">
+                                <div class="featured-achievement" id="tac-challenge">
                                     <div class="featured-achievement-content">
                                         <div class="featured-achievement-text">
                                             <div class="achievement-header">
@@ -213,7 +278,7 @@
                                                 <span class="achievement-year">2023</span>
                                             </div>
                                             <div class="achievement-summary">
-                                                <p>Dünya 8.liği - Robotik Su Altı Sistemleri yarışmasında ülkemizi
+                                                <p>Dünya 8'inciliği - Robotik Su Altı Sistemleri yarışmasında ülkemizi
                                                     uluslararası arenada başarıyla temsil ettik. Norveç'te
                                                     gerçekleştirilen bu prestijli yarışmada, özgün tasarımımız ve otonom
                                                     görev icra kabiliyetimizle dünya genelindeki en iyi takımlar
@@ -235,12 +300,42 @@
                                     </div>
                                 </div>
 
+                                <div class="featured-achievement" id="mavi-vatan">
+                                    <div class="featured-achievement-content">
+                                        <div class="featured-achievement-text">
+                                            <div class="achievement-header">
+                                                <h4>🌊 Teknofest Mavi Vatan</h4>
+                                                <span class="achievement-year">2024</span>
+                                            </div>
+                                            <div class="achievement-summary">
+                                                <p>Mavi Vatan İnsansız Su Altı Sistemleri yarışmasında, otonom görev
+                                                    icra kabiliyetimiz ve
+                                                    özgün tasarımımızla finalist olarak yarışma başarısı gösterdik. Su
+                                                    altı arama-kurtarma
+                                                    ve nesne tespiti gibi zorlu görevleri başarıyla tamamlayarak
+                                                    inovatif çözümlerimizi
+                                                    sergiledik.</p>
+                                            </div>
+                                        </div>
+                                        <div class="featured-achievement-gallery">
+                                                <div class="gallery-item"><img src="images/mavi1.jpeg"
+                                                    alt="Mavi Vatan Başarı 1"></div>
+                                                <div class="gallery-item"><img src="images/mavi2.jpeg"
+                                                    alt="Mavi Vatan Başarı 2"></div>
+                                                <div class="gallery-item"><img src="images/mavi3.jpeg"
+                                                    alt="Mavi Vatan Başarı 3"></div>
+                                                <div class="gallery-item"><img src="images/mavi4.jpeg"
+                                                    alt="Mavi Vatan Başarı 4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="other-achievements-grid">
                                     <div class="achievement-item">
-                                        <div class="achievement-icon">🌊</div>
+                                        <div class="achievement-icon">🚢</div>
                                         <div class="achievement-text">
-                                            <h4>Teknofest Mavi Vatan</h4>
-                                            <p>Finalist - Otonom Su Altı Sistemleri</p>
+                                            <h4>Teknofest İnsansız Su Altı Sistemleri</h4>
+                                            <p>Yarı Finalist</p>
                                             <span class="achievement-year">2024</span>
                                         </div>
                                     </div>
@@ -358,9 +453,9 @@
                                 <h3>Ne Yapıyoruz?</h3>
                                 <ul>
                                     <li>Özgün robot tasarımı</li>
-                                    <li>robotik kontrol ve bağlantı sistemleri</li>
-                                    <li>robotik elektroniği ve güç sistemleri</li>
-                                    <li>robotik sensör sistemleri</li>
+                                    <li>Robotik kontrol ve bağlantı sistemleri</li>
+                                    <li>Robotik elektroniği ve güç sistemleri</li>
+                                    <li>Robotik sensör sistemleri</li>
                                     <li>İnsanlığa yararlı teknolojiler geliştirme</li>
                                     <li>Yapay zeka modelleri</li>
                                 </ul>
@@ -423,7 +518,7 @@
                                         <div class="achievement-icon">🩺</div>
                                         <div class="achievement-text">
                                             <h4>Sağlıkta Yapay Zeka Yarışması</h4>
-                                            <p>En İyi Rapor Ödülü (Türkiye 1.si)</p>
+                                            <p>En İyi Rapor Ödülü (Türkiye birincisi)</p>
                                             <span class="achievement-year">2024</span>
                                         </div>
                                     </div>
@@ -476,7 +571,7 @@
 
                             <div class="details-section">
                                 <h3>Görevlerimiz</h3>
-                                <p>Tüm takımların yazılım ihtiyaçlarını karşılayan birimiz, otonom sistemler, yapay zeka
+                                <p>Tüm takımların yazılım ihtiyaçlarını karşılayan birimimiz, otonom sistemler, yapay zeka
                                     algoritmaları ve gömülü yazılım geliştirme alanlarında uzmanlaşmıştır.</p>
                             </div>
 
@@ -518,7 +613,7 @@
                             <div class="details-section">
                                 <h3>Görevlerimiz</h3>
                                 <p>Yapısal tasarım, malzeme mühendisliği ve mekanik sistem geliştirme konularında tüm
-                                    takımlara destek sağlayan birimiz.</p>
+                                    takımlara destek sağlayan birimimiz.</p>
                             </div>
 
                             <div class="details-section">
@@ -558,7 +653,7 @@
                             <div class="details-section">
                                 <h3>Görevlerimiz</h3>
                                 <p>Devre tasarımı, PCB geliştirme ve elektronik sistem entegrasyonu konularında tüm
-                                    takımlara teknik destek sağlayan birimiz.</p>
+                                    takımlara teknik destek sağlayan birimimiz.</p>
                             </div>
 
                             <div class="details-section">
@@ -611,7 +706,7 @@
                             <div class="details-section">
                                 <h3>Görevlerimiz</h3>
                                 <p>Endüstriyel tasarım, 3D modelleme ve kullanıcı deneyimi tasarımı konularında tüm
-                                    takımlara görsel ve estetik destek sağlayan birimiz.</p>
+                                    takımlara görsel ve estetik destek sağlayan birimimiz.</p>
                             </div>
 
                             <div class="details-section">
@@ -663,7 +758,7 @@
                             <div class="details-section">
                                 <h3>Görevlerimiz</h3>
                                 <p>Medya yönetimi, sponsorluk ilişkileri ve topluluk etkileşimi konularında tüm
-                                    takımların dış dünya ile bağlantısını sağlayan birimiz.</p>
+                                    takımların sponsorlar ile bağlantısını sağlayan birimimiz.</p>
                             </div>
 
                             <div class="details-section">
@@ -711,6 +806,33 @@
                                 <div class="project-item">
                                     <div class="project-main-content">
                                         <div class="project-image">
+                                            <img src="images/mercan.png" alt="Proje Görseli">
+                                        </div>
+                                        <div class="project-meta">
+                                            <h4>7.Kıta Gerçeği: Mercan Ekosistemleri ile Deniz Kirliliğinin Görüntü İşleme ile Analizi ve Otonom Çözüm</h4>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Katılan Öğrenciler:</span>
+                                                <span class="meta-value">Samet Aktaş, Ecrin Amaç, Kemal Çakır</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Temel Amaç:</span>
+                                                <span class="meta-value">Görüntü işleme kullanan bir otonom araç geliştirmek ve mercanları etkileyen çöpleri toplamak ve mercanlar üzerindeki etkilerini incelemek</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Başarı:</span>
+                                                <span class="meta-value">Coğrafya Alanında Avrupa Bölge İkinciliği</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Tarih:</span>
+                                                <span class="meta-value">2026</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="project-item">
+                                    <div class="project-main-content">
+                                        <div class="project-image">
                                             <img src="images/2204-umut.png" alt="Proje Görseli">
                                         </div>
                                         <div class="project-meta">
@@ -730,7 +852,11 @@
                                             </div>
                                             <div class="meta-row">
                                                 <span class="meta-label">Başarı:</span>
-                                                <span class="meta-value">Avrupa Bölge İkinciliği</span>
+                                                <span class="meta-value">Fizik Alanında Avrupa Bölge İkinciliği</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Tarih:</span>
+                                                <span class="meta-value">2025</span>
                                             </div>
                                         </div>
                                     </div>
@@ -755,7 +881,11 @@
                                             </div>
                                             <div class="meta-row">
                                                 <span class="meta-label">Başarı:</span>
-                                                <span class="meta-value">Avrupa Bölge İkinciliği</span>
+                                                <span class="meta-value">Coğrafya Alanında Avrupa Bölge İkinciliği</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Tarih:</span>
+                                                <span class="meta-value">2025</span>
                                             </div>
                                         </div>
                                     </div>
@@ -775,12 +905,16 @@
                                             <div class="meta-row">
                                                 <span class="meta-label">Temel Amaç:</span>
                                                 <span class="meta-value">Kuantum noktalarla özelleştirilmiş kompozit
-                                                    materyaller kızılötesi elektromanyetik radyasyonu soğurabilir
-                                                    mi?</span>
+                                                    materyaller ile kızılötesi elektromanyetik radyasyonu soğurabilirmek
+                                                    </span>
                                             </div>
                                             <div class="meta-row">
                                                 <span class="meta-label">Başarı:</span>
-                                                <span class="meta-value">Avrupa Bölge İkinciliği</span>
+                                                <span class="meta-value">Fizik Alanında Avrupa Bölge İkinciliği</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Tarih:</span>
+                                                <span class="meta-value">2024</span>
                                             </div>
                                         </div>
                                     </div>
@@ -811,6 +945,8 @@
         </footer>
     </main>
 
+    <a class="floating-cta" href="contact.html#sponsorluk-paketleri" aria-label="Sponsorluk paketlerine git">Sponsor Ol</a>
+
     <div id="videoModal" class="video-modal">
         <div class="modal-content">
             <button class="modal-close">&times;</button>
@@ -821,6 +957,8 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
     <script src="script.js"></script>
 </body>
 

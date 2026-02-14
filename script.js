@@ -1,5 +1,117 @@
 
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    root.classList.add('light');
+} else {
+    root.classList.remove('light');
+}
+
+themeToggle?.addEventListener('click', () => {
+    root.classList.toggle('light');
+    const currentTheme = root.classList.contains('light') ? 'light' : 'dark';
+    localStorage.setItem('theme', currentTheme);
+});
+
+async function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+    }
+
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    textArea.style.pointerEvents = 'none';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    const copied = document.execCommand('copy');
+    document.body.removeChild(textArea);
+    return copied;
+}
+
+function initializeCopyActions() {
+    const copyButtons = document.querySelectorAll('[data-copy]');
+
+    copyButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const textToCopy = button.getAttribute('data-copy');
+            if (!textToCopy) return;
+
+            const card = button.closest('.contact-card');
+            const feedback = card?.querySelector('[data-copy-feedback]');
+
+            try {
+                await copyText(textToCopy);
+                if (feedback) {
+                    feedback.textContent = 'Telefon kopyalandı';
+                    setTimeout(() => {
+                        feedback.textContent = '';
+                    }, 1800);
+                }
+            } catch {
+                if (feedback) {
+                    feedback.textContent = 'Kopyalama başarısız';
+                }
+            }
+        });
+    });
+}
+
+function optimizeMediaAssets() {
+    const images = document.querySelectorAll('img');
+
+    images.forEach((img, index) => {
+        if (img.hasAttribute('loading')) return;
+        img.loading = index < 2 ? 'eager' : 'lazy';
+        img.decoding = 'async';
+    });
+}
+
+function initializeVehicleHoverPreview() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const videoItems = document.querySelectorAll('.vehicle-item[data-video]');
+    videoItems.forEach((item) => {
+        const videoSrc = item.getAttribute('data-video');
+        const container = item.querySelector('.vehicle-img-container');
+
+        if (!videoSrc || !container) return;
+
+        if (container.querySelector('.vehicle-preview-video')) return;
+
+        const preview = document.createElement('video');
+        preview.className = 'vehicle-preview-video';
+        preview.src = videoSrc;
+        preview.muted = true;
+        preview.loop = true;
+        preview.playsInline = true;
+        preview.preload = 'metadata';
+
+        container.appendChild(preview);
+
+        item.addEventListener('mouseenter', () => {
+            item.classList.add('is-previewing');
+            preview.play().catch(() => { });
+        });
+
+        item.addEventListener('mouseleave', () => {
+            item.classList.remove('is-previewing');
+            preview.pause();
+            preview.currentTime = 0;
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initializeCopyActions();
+    optimizeMediaAssets();
+
     const cards = document.querySelectorAll('.interactive-card');
     const body = document.body;
     let overlay = null;
@@ -198,10 +310,10 @@ const VEHICLE_CONFIG = {
     ],
     'hidro': [
         { name: 'CAKA_ROV', img: 'images/cakarov.jpeg', video: 'videos/cakarov.mp4', btnText: 'Test Sürüşü' },
-        { name: 'Altay', img: 'images/ALTAY.jpeg', video: 'videos/altay.mp4', btnText: 'Norveç Sualtı Videosu' },
+        { name: 'Altay', img: 'images/ALTAY.jpeg', video: 'videos/altay.mp4', btnText: 'Norveç Su Altı Videosu' },
         { name: 'Tuna', img: 'images/Tuna_foto.png', video: 'videos/ida_swim.mp4', btnText: 'Yüzme Videosu' },
         { name: 'Barbaros', img: 'images/barbaros.jpeg', video: null, btnText: 'Uçuş Videosu' },
-        { name: 'ida', img: 'images/nacar.jpeg', video: null, btnText: 'Uçuş Videosu' },
+        { name: 'Orhun', img: 'images/nacar.jpeg', video: null, btnText: 'Uçuş Videosu' },
         { name: 'prototip', img: 'images/prototip.png', video: null, btnText: 'Uçuş Videosu' }
     ],
     'gok': [
@@ -238,6 +350,7 @@ function renderVehicles() {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderVehicles();
+    initializeVehicleHoverPreview();
 
     const videoModal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
@@ -284,4 +397,155 @@ document.addEventListener('DOMContentLoaded', () => {
             closeVideoModal();
         }
     });
+});
+
+/* ========================================
+   EVENTS SLIDER FUNCTIONALITY
+   ======================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sliderTrack = document.querySelector('.slider-track');
+    const slides = document.querySelectorAll('.event-slide');
+    const prevBtn = document.querySelector('.slider-prev');
+    const nextBtn = document.querySelector('.slider-next');
+    const dotsContainer = document.querySelector('.slider-dots');
+    
+    if (!sliderTrack || slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoplayInterval;
+    const autoplayDelay = 5000; // 5 saniye
+
+    // Dot'ları oluştur
+    slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('slider-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', `Slide ${index + 1}`);
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.slider-dot');
+
+    function updateSlider() {
+        sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Dot'ları güncelle
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        if (currentIndex >= slides.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = slides.length - 1;
+        updateSlider();
+        resetAutoplay();
+    }
+
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+
+    // Autoplay
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+
+    function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
+
+    // Event Listeners
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Hover'da autoplay'i durdur
+    const eventsSection = document.querySelector('.events-section');
+    eventsSection.addEventListener('mouseenter', stopAutoplay);
+    eventsSection.addEventListener('mouseleave', startAutoplay);
+
+    // Touch/Swipe desteği
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sliderTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+    }, { passive: true });
+
+    sliderTrack.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (diff > swipeThreshold) {
+            nextSlide();
+        } else if (diff < -swipeThreshold) {
+            prevSlide();
+        }
+    }
+
+    // Slide tıklama - ilgili takım kartına scroll
+    slides.forEach(slide => {
+        slide.addEventListener('click', (e) => {
+            const targetTeam = slide.getAttribute('data-target');
+            const scrollTo = slide.getAttribute('data-scroll-to');
+            if (!targetTeam) return;
+
+            // İlgili takım kartını bul
+            const targetCard = document.querySelector(`.interactive-card[data-team="${targetTeam}"]`);
+            if (!targetCard) return;
+
+            // Önce kartı tıkla (genişletmek için)
+            targetCard.click();
+
+            // Kart açıldıktan sonra ilgili bölüme scroll et
+            setTimeout(() => {
+                const expandedCard = document.querySelector('.interactive-card.expanded');
+                if (expandedCard && scrollTo) {
+                    // Hedef elementi bul
+                    const targetElement = expandedCard.querySelector(`#${scrollTo}`);
+                    if (targetElement) {
+                        // Biraz gecikme ile scroll - offset ile daha erken dur
+                        setTimeout(() => {
+                            const elementTop = targetElement.offsetTop;
+                            const offset = 150; // Daha erken durması için offset
+                            expandedCard.scrollTo({
+                                top: elementTop - offset,
+                                behavior: 'smooth'
+                            });
+                        }, 200);
+                    }
+                }
+            }, 500);
+        });
+    });
+
+    // Klavye navigasyonu
+    document.addEventListener('keydown', (e) => {
+        if (e.target.closest('.events-section')) {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        }
+    });
+
+    // Başlat
+    startAutoplay();
 });

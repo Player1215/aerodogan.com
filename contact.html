@@ -43,6 +43,7 @@
 </head>
 
 <body>
+    <div id="particles-js"></div>
     <div class="global-bg">
         <div class="global-mesh"></div>
         <div class="orb orb-top-left"></div>
@@ -61,6 +62,7 @@
             <ul class="nav-menu-contact">
                 <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
                 <li><a href="contact.html" class="nav-link active">İletişim</a></li>
+                <li><button id="themeToggle" class="theme-toggle" type="button" aria-label="Temayı değiştir">TEMA</button></li>
             </ul>
         </div>
     </nav>
@@ -103,7 +105,10 @@
                         <h3>Telefon</h3>
                         <p>Danışman Öğretmen</p>
                         <p>Ömer Karadağ</p>
-                        <p>+90 505 708 74 84</p>
+                        <p>
+                            <button type="button" class="copy-action" data-copy="+905057087484" aria-label="Telefon numarasını kopyala">+90 505 708 74 84</button>
+                        </p>
+                        <p class="copy-feedback" data-copy-feedback aria-live="polite"></p>
                     </div>
 
                     <div class="contact-card">
@@ -114,9 +119,13 @@
                             </svg>
                         </div>
                         <h3>Adres</h3>
-                        <p>Doğan Cüceloğlu Fen Lisesi</p>
-                        <p>Halkalı Stadı, Atakent, 4. Cd.</p>
-                        <p>Küçükçekmece, İstanbul 34307</p>
+                        <p>
+                            <a class="contact-inline-link" href="https://maps.app.goo.gl/uFbDQunUAz387GZk6" target="_blank" rel="noopener noreferrer" aria-label="Adres konumunu haritada aç">
+                                Doğan Cüceloğlu Fen Lisesi<br>
+                                Halkalı Stadı, Atakent, 4. Cd.<br>
+                                Küçükçekmece, İstanbul 34307
+                            </a>
+                        </p>
 
                     </div>
 
@@ -128,8 +137,8 @@
                             </svg>
                         </div>
                         <h3>Sosyal Medya</h3>
-                        <p>LinkedIn | Instagram </p>
-                        <p> AeroDoğan | @aerodogan</p>
+                        <p><a class="contact-inline-link" href="https://www.linkedin.com/groups/9309810/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn grubunu aç">LinkedIn</a> | <a class="contact-inline-link" href="https://www.instagram.com/dogancuceloglufenlisesi/?hl=tr" target="_blank" rel="noopener noreferrer" aria-label="Instagram profilini aç">Instagram</a></p>
+                        <p><a class="contact-inline-link" href="https://www.linkedin.com/groups/9309810/" target="_blank" rel="noopener noreferrer" aria-label="AeroDoğan LinkedIn sayfasını aç">AeroDoğan</a> | <a class="contact-inline-link" href="https://www.instagram.com/dogancuceloglufenlisesi/?hl=tr" target="_blank" rel="noopener noreferrer" aria-label="@aerodogan Instagram sayfasını aç">@aerodogan</a></p>
                     </div>
                 </div>
             </div>
@@ -180,7 +189,7 @@
             </div>
         </section>
 
-        <section class="packages-section">
+        <section class="packages-section" id="sponsorluk-paketleri">
             <div class="section-container">
                 <h2 class="section-title">Sponsorluk Paketleri</h2>
                 <p class="section-subtitle">Geleceğin teknolojilerine yatırım yapın, bizimle büyüyün</p>
@@ -277,14 +286,16 @@
                 <div class="extra-packages-grid">
                     <div class="custom-package">
                         <h3>Malzeme Sponsorluğu</h3>
-                        <p>Takımlarımızın projelerinde ihtiyaç duyduğu teknik donanım, hammadde veya test ekipmanları
+                        <p>Takımlarımızın projelerinde ihtiyaç duyduğu teknik donanım, hammadde veya test
+                            ekipmanları
                             konusunda destek olarak projelerimizin bir parçası olabilirsiniz.</p>
                         <a href="mailto:aerodogan2022@gmail.com?subject=Malzeme Sponsorluğu"
                             class="custom-package-btn material-btn">Detaylı Bilgi Al</a>
                     </div>
                     <div class="custom-package">
                         <h3>Özel Sponsorluk Paketi</h3>
-                        <p>İhtiyaçlarınıza özel bir sponsorluk paketi oluşturmak için bizimle iletişime geçin. Teknik
+                        <p>İhtiyaçlarınıza özel bir sponsorluk paketi oluşturmak için bizimle iletişime geçin.
+                            Teknik
                             destek veya özel projeler için esnek modellerle birlikte çalışabiliriz.</p>
                         <a href="mailto:aerodogan2022@gmail.com?subject=Özel Sponsorluk Paketi"
                             class="custom-package-btn">Özel Paket Talebi</a>
@@ -315,6 +326,10 @@
         </footer>
     </main>
 
+    <a class="floating-cta" href="#sponsorluk-paketleri" aria-label="Sponsorluk paketlerine git">Paketlere Git</a>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
     <script src="script.js"></script>
 </body>
 
