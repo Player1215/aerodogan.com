@@ -1,0 +1,240 @@
+"İstikbal Göklerdedir."
+(function () { try { if (localStorage.getItem('theme') === 'light') { document.documentElement.classList.add('light'); } document.documentElement.lang = localStorage.getItem('lang') === 'en' ? 'en' : 'tr'; } catch (e) { } })();
+@aerodogan
+&copy; 2026 DCFL Teknoloji Takımları. Tüm hakları saklıdır.
+&times;
++90 505 708 74 84
+×
+|
+✈️
+🌊 Teknofest Mavi Vatan
+🌍 TAC Challenge (Norveç)
+🏆
+💡
+🤖
+🧪
+🧬
+🩺
+🚀
+🚢
+₺10,000 - ₺50,000
+₺100,000 - ₺200,000
+₺200,000+
+₺50,000 - ₺100,000
+2022-2024
+2023
+2023-2024
+2024
+2025
+2026
+2204-A
+3 Kez Finalist
+3 kez Yarı Finallere kaldı
+3D baskı ve hızlı prototipleme
+3D görselleştirme ve render
+5 Başarılı Test Atışı
+7.Kıta Gerçeği: Mercan Ekosistemleri ile Deniz Kirliliğinin Görüntü İşleme ile Analizi ve Otonom Çözüm
+Adres
+Aerodinamik optimizasyon ve simülasyon
+Aerodinamik ve hidrodinamik optimizasyon
+aerodogan2022@gmail.com
+Aerodoğan
+Altın Paket
+Altın Sponsor
+Amacımız
+Ana Sayfa
+Ana sponsor olarak tüm etkinliklerde ön planda yer alma
+Analog ve dijital devre tasarımı
+Araçlarda logo yerleşimi
+Arda SINMAZ, Hüseyin Selçuk YILDIZ
+Başarı:
+Başarılarımız
+Birimlerimiz
+Bitkilerin topraktan aldığı ağır metal analizini yapan yapay zeka algoritması geliştirmek.
+Bize güvenen ve destekleyen değerli iş ortaklarımız
+Bizimle İletişime Geçin veya Sponsorumuz Olun
+Bronz Paket
+Bronz Sponsor
+CAD tasarım ve 3D modelleme (SolidWorks, Fusion 360)
+CNC işleme ve imalat
+Coğrafya Alanında Avrupa Bölge İkinciliği
+Çeşitli robotlar üreterek ulusal ve uluslararası yarışmalarda başarı elde etmek. Ayrıca yapay zeka modelleri geliştirerek ulusal yarışmalarda başarı elde etmek.
+Danışman Öğretmen
+DCFL
+DCFL Teknoloji Takımları
+DCFL Teknoloji Takımları | Ana Sayfa
+Degz
+Deniz araçları ve insansız su altı araçları
+Deniz ortamı simülasyon yazılımları
+Deniz teknolojileri ve su altı robotik sistemleri yarışması.
+Detayları Gör
+Detaylı Bilgi Al
+Devre tasarımı, PCB geliştirme ve elektronik sistem entegrasyonu konularında tüm takımlara teknik destek sağlayan birimimiz.
+Doğan Cüceloğlu Fen Lisesi
+Dünya 8'inciliği - Robotik Su Altı Sistemleri yarışmasında ülkemizi uluslararası arenada başarıyla temsil ettik. Norveç'te gerçekleştirilen bu prestijli yarışmada, özgün tasarımımız ve otonom görev icra kabiliyetimizle dünya genelindeki en iyi takımlar arasında yer alarak büyük bir başarıya imza attık. Bu süreçte kazandığımız tecrübe, milli teknoloji hamlesine olan inancımızı pekiştirdi.
+E-mail
+Elektrodoğan
+Elektronik
+Elektronik Bileşen Desteği
+Elektronik Birimi
+Elektronik ve Yapay Zeka
+EN
+En İyi Rapor Ödülü (Türkiye birincisi)
+En İyi Tasarım Ödülü
+Endüstriyel tasarım, 3D modelleme ve kullanıcı deneyimi tasarımı konularında tüm takımlara görsel ve estetik destek sağlayan birimimiz.
+Endüstriyel ürün tasarımı
+Estetik ve Fonksiyonellik
+Etkinlik organizasyonu
+Etkinliklerde logo gösterimi
+Etkinliklerde tanıtım
+Finalist
+Fizik Alanında Avrupa Bölge İkinciliği
+Geleceğin Kuantum Hayaletleri: Grafen Kuantum Iran Malzemeleri
+Geleceğin teknolojilerine yatırım yapın, bizimle büyüyün
+Gelecek Nesillere Miras Kalan Çevre Sorunu: Yapay Zeka Desteği İle Sanayi Kirleticilerinin Etki Analizi
+Gökdoğan
+Gömülü sistem yazılımları (C/C++, Python)
+Görevlerimiz
+Görüntü işleme kullanan bir otonom araç geliştirmek ve mercanları etkileyen çöpleri toplamak ve mercanlar üzerindeki etkilerini incelemek
+Grafik tasarım ve marka kimliği
+Güç elektroniği ve batarya yönetimi
+Gümüş Paket
+Gümüş Sponsor
+Haberleşme sistemleri (RF, telemetri)
+Halkalı Stadı, Atakent, 4. Cd.
+Halkla İlişkiler
+Halkla İlişkiler Birimi
+Havacılık elektroniği ve aviyonik sistemler
+Hızlı Bağlantılar
+Hızlı Çizgi İzleyen
+Hidrodinamik analiz ve optimizasyon
+Hidrodoğan
+Instagram
+İçerik üretimi ve hikaye anlatımı
+İhtiyaçlarınıza özel bir sponsorluk paketi oluşturmak için bizimle iletişime geçin. Teknik destek veya özel projeler için esnek modellerle birlikte çalışabiliriz.
+İletişim
+İletişim Bilgilerimiz
+İletişim ve Sponsorluk
+İletişim ve Sponsorluk | DCFL Teknoloji Takımları
+İletişim ve Topluluk
+İletişime Geç
+İnsanlığa yararlı teknolojiler geliştirme
+İnsansız Denizaltı Sistemleri
+İnsansız Hava Araçları
+İnsansız Hava Araçları (İHA)
+İnsansız Hava Araçları (İHA) tasarımı ve üretimi
+İnsansız su altı sistemleri yarışması. Hidrodoğan takımımızla katıldık.
+Karbon Kuantum noktalar ile katkılandırılmış Karonfiber kumaşın Kapasitörlerde kullanımı ve Süper kapasitörlerde kullanım potansiyeli incelenmiştir
+Katılan Öğrenciler:
+Kendi üretimimiz olan İHA ve SİHA sistemlerini Teknofest yarışmalarında kullanarak dereceler elde etmeyi ve ülkemizin havacılık sektörüne katkıda bulunmaya çalışıyoruz.
+Kerim Efe CİCİKARA
+Kodlama ile Geleceği Şekillendiriyoruz
+Kolyecik
+Kompozit malzeme tasarımı
+Kuantum noktalarla özelleştirilmiş kompozit materyaller ile kızılötesi elektromanyetik radyasyonu soğurabilirmek
+Küçükçekmece, İstanbul 34307
+Learn&Lodge
+LinkedIn
+Lise Araştırma Projeleri
+Lise Öğrencileri Araştırma Projeleri
+Logo yerleşimi: Tüm araçlar, web sitesi, sosyal medya
+Maddi Destek
+Malzeme Sponsorluğu
+Malzeme Sponsoru
+Mavi Vatan
+Mavi Vatan İnsansız Su Altı Sistemleri yarışmasında, otonom görev icra kabiliyetimiz ve özgün tasarımımızla finalist olarak yarışma başarısı gösterdik. Su altı arama-kurtarma ve nesne tespiti gibi zorlu görevleri başarıyla tamamlayarak inovatif çözümlerimizi sergiledik.
+MEB Robot Yarışması
+Medya görünürlüğünde öncelikli yer
+Medya ilişkileri ve basın bültenleri
+Medya yönetimi, sponsorluk ilişkileri ve topluluk etkileşimi konularında tüm takımların sponsorlar ile bağlantısını sağlayan birimimiz.
+Mekanik
+Mekanik Birimi
+Mikroişlemci programlama
+Model roket tasarımı
+Muhammed Ege KIZILKAYA, Umut Eren YAVUZ
+Ne Yapıyoruz?
+Otonom navigasyon ve kontrol algoritmaları
+Otonom uçuş sistemleri geliştirme
+Ödüller ve Dereceler
+Ömer Karadağ
+Özbey Stone
+Özel Paket Talebi
+Özel Sponsorluk Paketi
+Özel tanıtım videosu ve içerik üretimi
+Özgün Devre Üretimi
+Özgün robot tasarımı
+Paketlere Git
+PCB tasarımı ve üretimi (Fritzing, EAGLE)
+Platin Paket
+Profesyonel roket tasarımı
+Profesyonel ve model roket geliştirerek ülkemizde yarışmalarda derece elde etmek ve ülkemizin roket sanayisine katkıda bulunmak.
+Profesyonel ve Model Roket Geliştirme
+Proje Portföyü
+Robot ve Yapay Zeka
+Robotik elektroniği ve güç sistemleri
+Robotik kontrol ve bağlantı sistemleri
+Robotik sensör sistemleri
+Roket elektroniği ve güç sistemleri
+Sağlıkta Yapay Zeka Yarışması
+Samet Aktaş, Ecrin Amaç, Kemal Çakır
+Sensör entegrasyonu ve sinyal işleme
+Simülasyon ve test yazılımları
+Sosyal Medya
+Sosyal medya paylaşımlarında etiketleme
+Sosyal medya yönetimi
+Sosyal medyada teşekkür paylaşımı
+Sosyal medyada teşekkür paylaşımları
+Sponsor Ol
+Sponsorlarımız
+Sponsorluk Paketleri
+Sponsorluk ve fon bulma
+Su altı görüntüleme ve sensör sistemleri
+Su altı robotik sistemleri (ROV/AUV) tasarımı
+Su altı teknolojileri geliştirmek ve deniz araçları ve su altı robotik sistemlerinde Türkiye'yi dünya standartlarına taşımak. Ayrıca ülkemizde yapılan su altı yarışmalarında derece elde etmek
+TAC Challenge
+Takım sunumlarında logo kullanımı
+Takımlarımız
+Takımlarımızın projelerinde ihtiyaç duyduğu teknik donanım, hammadde veya test ekipmanları konusunda destek olarak projelerimizin bir parçası olabilirsiniz.
+Tarayıcınız video etiketini desteklemiyor.
+Tarım Robotu
+Tarih:
+Tasarım
+Tasarım Birimi
+Teknik dokümantasyon ve sunum
+Teknofest İnsansız Su Altı Sistemleri
+Teknofest Robotik
+Teknofest Roket Yarışması
+Teknofest Serbest Görev İHA Yarışması
+Teknofest SİHA Yarışması
+Teknoloji Takımları
+Telefon
+TEMA
+Temel Amaç:
+Topluluk yönetimi ve networking
+Tübitak 2204-A
+Tübitak Başarılarımız
+Tüm takımların yazılım ihtiyaçlarını karşılayan birimimiz, otonom sistemler, yapay zeka algoritmaları ve gömülü yazılım geliştirme alanlarında uzmanlaşmıştır.
+Uçuş kontrol yazılımları
+Uçuş Videosunu İzle
+UI/UX tasarımı
+Uzmanlık Alanları
+Ürettiğimiz Araçlar
+Video prodüksiyon ve animasyon
+Web sitesi ve sosyal medyada görünürlük
+Web sitesinde sponsor listesinde yer alma
+Web ve mobil uygulama geliştirme
+Yapay zeka modelleri
+Yapay zeka ve makine öğrenmesi
+Yapısal Mühendislik
+Yapısal tasarım, malzeme mühendisliği ve mekanik sistem geliştirme konularında tüm takımlara destek sağlayan birimimiz.
+Yarı Finalist
+Yarışma
+Yarışma ve etkinliklerde tanıtım
+Yarışmalarda VIP konuk olarak ağırlama
+Yazılım
+Yazılım Birimi
+Yer kontrol istasyonu yazılımları
+Yerli roket yakıtı üretimi
+Yerli Yakıt Denemeleri
+Yeşil Sentezli Kuantum Noktalar İle Güçlendirilmiş Karbonfiber Liflerin Süperkapasitörlerdeki Uygulama Potansiyeli
+Yıllık teşekkür belgesi

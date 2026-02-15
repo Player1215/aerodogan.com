@@ -1,6 +1,121 @@
 
 const themeToggle = document.getElementById('themeToggle');
+const languageToggle = document.getElementById('languageToggle');
 const root = document.documentElement;
+let currentLang = localStorage.getItem('lang') === 'en' ? 'en' : 'tr';
+const originalTextNodes = new WeakMap();
+
+function getI18nData() {
+    return (window.I18N_TRANSLATIONS && window.I18N_TRANSLATIONS.en) || { texts: {}, aria: {}, titles: {} };
+}
+
+function t(text) {
+    if (currentLang !== 'en') return text;
+    const map = getI18nData().texts || {};
+    return map[text] || text;
+}
+
+function normalizeText(text) {
+    return text.replace(/\s+/g, ' ').trim();
+}
+
+function updateLanguageButton() {
+    if (!languageToggle) return;
+    languageToggle.textContent = currentLang === 'en' ? 'TR' : 'EN';
+}
+
+function updateDocumentTitle() {
+    const titles = getI18nData().titles || {};
+    const path = window.location.pathname.endsWith('contact.html') ? '/contact.html' : '/index.html';
+
+    if (currentLang === 'en') {
+        document.title = titles[path] || document.title;
+    } else {
+        document.title = path === '/contact.html'
+            ? 'İletişim ve Sponsorluk | DCFL Teknoloji Takımları'
+            : 'DCFL Teknoloji Takımları | Ana Sayfa';
+    }
+}
+
+function translateTextNodes() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    });
+
+    let node;
+    while ((node = walker.nextNode())) {
+        if (!originalTextNodes.has(node)) {
+            originalTextNodes.set(node, node.nodeValue);
+        }
+
+        const original = originalTextNodes.get(node);
+        const normalized = normalizeText(original);
+
+        if (currentLang === 'en') {
+            const translated = t(normalized);
+            if (translated !== normalized) {
+                const leading = (original.match(/^\s*/) || [''])[0];
+                const trailing = (original.match(/\s*$/) || [''])[0];
+                node.nodeValue = `${leading}${translated}${trailing}`;
+                if (node.parentElement) {
+                    node.parentElement.classList.remove('i18n-flash');
+                    void node.parentElement.offsetWidth;
+                    node.parentElement.classList.add('i18n-flash');
+                    setTimeout(() => {
+                        node.parentElement?.classList.remove('i18n-flash');
+                    }, 380);
+                }
+            } else {
+                node.nodeValue = original;
+            }
+        } else {
+            node.nodeValue = original;
+            if (node.parentElement && normalized) {
+                node.parentElement.classList.remove('i18n-flash');
+                void node.parentElement.offsetWidth;
+                node.parentElement.classList.add('i18n-flash');
+                setTimeout(() => {
+                    node.parentElement?.classList.remove('i18n-flash');
+                }, 380);
+            }
+        }
+    }
+}
+
+function translateAriaLabels() {
+    const ariaMap = getI18nData().aria || {};
+    document.querySelectorAll('[aria-label]').forEach((el) => {
+        const current = el.getAttribute('aria-label');
+        if (!current) return;
+
+        if (!el.dataset.i18nAriaOriginal) {
+            el.dataset.i18nAriaOriginal = current;
+        }
+
+        if (currentLang === 'en') {
+            el.setAttribute('aria-label', ariaMap[el.dataset.i18nAriaOriginal] || el.dataset.i18nAriaOriginal);
+        } else {
+            el.setAttribute('aria-label', el.dataset.i18nAriaOriginal);
+        }
+    });
+}
+
+function applyLanguage(lang) {
+    currentLang = lang === 'en' ? 'en' : 'tr';
+    localStorage.setItem('lang', currentLang);
+    document.documentElement.lang = currentLang;
+
+    translateTextNodes();
+    translateAriaLabels();
+    updateDocumentTitle();
+    updateLanguageButton();
+}
 
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
@@ -10,9 +125,29 @@ if (savedTheme === 'light') {
 }
 
 themeToggle?.addEventListener('click', () => {
+    themeToggle.classList.remove('is-switching');
+    void themeToggle.offsetWidth;
+    themeToggle.classList.add('is-switching');
+
     root.classList.toggle('light');
     const currentTheme = root.classList.contains('light') ? 'light' : 'dark';
     localStorage.setItem('theme', currentTheme);
+
+    setTimeout(() => {
+        themeToggle.classList.remove('is-switching');
+    }, 450);
+});
+
+languageToggle?.addEventListener('click', () => {
+    languageToggle.classList.remove('is-switching');
+    void languageToggle.offsetWidth;
+    languageToggle.classList.add('is-switching');
+
+    applyLanguage(currentLang === 'en' ? 'tr' : 'en');
+
+    setTimeout(() => {
+        languageToggle.classList.remove('is-switching');
+    }, 450);
 });
 
 async function copyText(text) {
@@ -49,14 +184,14 @@ function initializeCopyActions() {
             try {
                 await copyText(textToCopy);
                 if (feedback) {
-                    feedback.textContent = 'Telefon kopyalandı';
+                    feedback.textContent = t('Telefon kopyalandı');
                     setTimeout(() => {
                         feedback.textContent = '';
                     }, 1800);
                 }
             } catch {
                 if (feedback) {
-                    feedback.textContent = 'Kopyalama başarısız';
+                    feedback.textContent = t('Kopyalama başarısız');
                 }
             }
         });
@@ -109,6 +244,7 @@ function initializeVehicleHoverPreview() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    applyLanguage(currentLang);
     initializeCopyActions();
     optimizeMediaAssets();
 

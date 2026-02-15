@@ -41,6 +41,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -52,6 +53,7 @@
                 if (localStorage.getItem('theme') === 'light') {
                     document.documentElement.classList.add('light');
                 }
+                document.documentElement.lang = localStorage.getItem('lang') === 'en' ? 'en' : 'tr';
             } catch (e) { }
         })();
     </script>
@@ -77,9 +79,10 @@
                 </div>
             </a>
             <ul class="nav-menu-contact">
-                <li><a href="index.html" class="nav-link active">Ana Sayfa</a></li>
-                <li><a href="contact.html" class="nav-link">İletişim</a></li>
                 <li><button id="themeToggle" class="theme-toggle" type="button" aria-label="Temayı değiştir">TEMA</button></li>
+                <li><button id="languageToggle" class="theme-toggle" type="button" aria-label="Dili değiştir">EN</button></li>
+                <li><a href="contact.html" class="nav-link">İletişim</a></li>
+                <li><a href="index.html" class="nav-link active">Ana Sayfa</a></li>
             </ul>
         </div>
     </nav>
@@ -99,7 +102,7 @@
 
         <!-- Events Slider Section -->
         <section class="events-section">
-            <h2 class="section-title-compact">Başarılarımız</h2>
+            <h2 class="section-title-compact achievements-title">Başarılarımız</h2>
             <div class="events-slider">
                 <button class="slider-arrow slider-prev" aria-label="Önceki">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -741,7 +744,7 @@
                         <div class="details-content">
                             <div class="details-header">
                                 <div class="dept-icon-large">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="stroke: #000000 !important;">
                                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                                         <circle cx="9" cy="7" r="4" />
                                         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -959,6 +962,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="particles-config.js"></script>
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 

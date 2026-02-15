@@ -187,9 +187,9 @@ body {
 }
 
 .nav-container {
-    max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 clamp(0.8rem, 2vw, 2rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -199,6 +199,7 @@ body {
     text-decoration: none;
     color: inherit;
     display: block;
+    margin-right: auto;
 }
 
 .nav-logo {
@@ -227,9 +228,11 @@ body {
 
 .nav-menu-contact {
     display: flex;
-    gap: 3rem;
+    gap: 0.9rem;
     align-items: center;
     list-style: none;
+    margin-left: auto;
+    justify-content: flex-end;
 }
 
 .theme-toggle {
@@ -243,12 +246,74 @@ body {
     letter-spacing: 0.8px;
     cursor: pointer;
     transition: all var(--transition-fast);
+    min-width: 84px;
+    text-align: center;
 }
 
 .theme-toggle:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
     transform: translateY(-1px);
+}
+
+.i18n-flash {
+    animation: i18nTextSwitch 0.36s ease;
+}
+
+@keyframes i18nTextSwitch {
+    0% {
+        opacity: 0.25;
+        transform: translateY(2px);
+        filter: blur(0.8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+#languageToggle {
+    position: relative;
+    overflow: hidden;
+}
+
+#languageToggle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(99, 102, 241, 0.18));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+#languageToggle:hover::after {
+    opacity: 1;
+}
+
+#languageToggle.is-switching {
+    animation: languageToggleSwitch 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#themeToggle.is-switching {
+    animation: languageToggleSwitch 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes languageToggleSwitch {
+    0% {
+        transform: translateY(-1px) scale(1) rotateY(0deg);
+    }
+
+    45% {
+        transform: translateY(-1px) scale(1.08) rotateY(90deg);
+    }
+
+    100% {
+        transform: translateY(-1px) scale(1) rotateY(0deg);
+    }
 }
 
 .nav-link {
@@ -258,6 +323,9 @@ body {
     font-size: 0.95rem;
     position: relative;
     transition: color var(--transition-fast);
+    display: inline-flex;
+    justify-content: center;
+    min-width: 92px;
 }
 
 .nav-link::after {
@@ -401,6 +469,11 @@ body {
     background-clip: text;
 }
 
+.achievements-title {
+    font-family: 'Exo 2', var(--font-display), sans-serif;
+    font-weight: 700;
+}
+
 .cards-container {
     display: grid;
     gap: 1rem;
@@ -410,11 +483,11 @@ body {
 }
 
 .teams-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .departments-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .interactive-card {
@@ -426,7 +499,53 @@ body {
     box-shadow: var(--card-shadow-soft);
     cursor: pointer;
     overflow: hidden;
+    min-width: 0;
     transition: all var(--transition-slow);
+}
+
+/* Subtle sheen effect */
+.interactive-card::before,
+.event-slide::before,
+.project-item::before,
+.achievement-item::before,
+.featured-achievement::before,
+.vehicle-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -140%;
+    width: 65%;
+    height: 100%;
+    background: linear-gradient(105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.06) 45%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.06) 55%,
+            transparent 100%);
+    transform: skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.interactive-card:hover::before,
+.event-slide:hover::before,
+.project-item:hover::before,
+.achievement-item:hover::before,
+.featured-achievement:hover::before,
+.vehicle-item:hover::before {
+    opacity: 1;
+    animation: sheenSweep 0.85s ease;
+}
+
+@keyframes sheenSweep {
+    from {
+        left: -140%;
+    }
+
+    to {
+        left: 180%;
+    }
 }
 
 :root.light .event-slide,
@@ -497,14 +616,14 @@ body {
 
 .interactive-card.expanded {
     position: fixed;
-    top: 50%;
+    top: calc(50% + 32px);
     left: 50%;
     transform: translate(-50%, -50%) !important;
     width: 95vw;
     max-width: 1200px;
-    height: 90vh;
+    height: calc(100vh - 130px);
     max-height: 900px;
-    z-index: 9999;
+    z-index: 950;
     overflow-y: auto;
     background: var(--panel-bg);
     box-shadow: var(--panel-shadow);
@@ -524,7 +643,7 @@ body {
     inset: 0;
     background: var(--overlay-bg);
     backdrop-filter: none;
-    z-index: 9998;
+    z-index: 940;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
@@ -613,6 +732,18 @@ h2.card-title {
     color: var(--color-text-muted);
 }
 
+html[lang="en"] .dept-card-interactive[data-dept="mechanical"] .card-summary .card-title,
+html[lang="en"] .dept-card-interactive[data-dept="electronics"] .card-summary .card-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+html[lang="tr"] .dept-card-interactive[data-dept="electronics"] .card-summary .card-title {
+    transform: translateX(-0.05em);
+}
+
 .interactive-card:not(.expanded):not(.minimized):hover {
     transform: translateY(-5px);
     border-color: var(--card-border-strong);
@@ -683,8 +814,8 @@ h2.card-title {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--card-border);
     position: sticky;
     top: 0;
@@ -693,16 +824,16 @@ h2.card-title {
     margin-top: -2rem;
     margin-left: -2rem;
     margin-right: -2rem;
-    padding: 2rem 2rem 1.5rem;
+    padding: 1.2rem 2rem 1rem;
 }
 
 .details-logo {
-    width: 100px;
-    height: 100px;
+    width: 84px;
+    height: 84px;
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--soft-surface-bg);
-    padding: 0.8rem;
+    padding: 0.65rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -715,8 +846,8 @@ h2.card-title {
 }
 
 .dept-icon-large {
-    width: 80px;
-    height: 80px;
+    width: 68px;
+    height: 68px;
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--soft-surface-bg);
@@ -743,16 +874,16 @@ h2.card-title {
 
 .details-title {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
 }
 
 h2.details-title {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
 }
 
 .details-tagline {
@@ -1275,7 +1406,7 @@ h2.footer-logo {
     }
 
     .nav-menu-contact {
-        gap: 2rem;
+        gap: 0.9rem;
     }
 
     .hero-title-compact {
@@ -1314,16 +1445,18 @@ h2.footer-logo {
     }
 
     .nav-menu-contact {
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .nav-link {
         font-size: 0.9rem;
+        min-width: auto;
     }
 
     .theme-toggle {
         padding: 0.4rem 0.8rem;
         font-size: 0.68rem;
+        min-width: auto;
     }
 
     .hero-compact {
@@ -1519,16 +1652,18 @@ h2.footer-logo {
     }
 
     .nav-menu-contact {
-        gap: 1.2rem;
+        gap: 0.75rem;
     }
 
     .nav-link {
         font-size: 0.85rem;
+        min-width: auto;
     }
 
     .theme-toggle {
         padding: 0.35rem 0.7rem;
         font-size: 0.64rem;
+        min-width: auto;
     }
 
     .main-container {

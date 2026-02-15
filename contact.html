@@ -38,6 +38,17 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'light') {
+                    document.documentElement.classList.add('light');
+                }
+                document.documentElement.lang = localStorage.getItem('lang') === 'en' ? 'en' : 'tr';
+            } catch (e) { }
+        })();
+    </script>
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="contact.css">
 </head>
@@ -60,9 +71,10 @@
                 </div>
             </a>
             <ul class="nav-menu-contact">
-                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="contact.html" class="nav-link active">İletişim</a></li>
                 <li><button id="themeToggle" class="theme-toggle" type="button" aria-label="Temayı değiştir">TEMA</button></li>
+                <li><button id="languageToggle" class="theme-toggle" type="button" aria-label="Dili değiştir">EN</button></li>
+                <li><a href="contact.html" class="nav-link active">İletişim</a></li>
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
             </ul>
         </div>
     </nav>
@@ -93,6 +105,7 @@
                         </div>
                         <h3>E-mail</h3>
                         <p>aerodogan2022@gmail.com</p>
+                        <p><a class="contact-inline-link" href="mailto:aerodogan2022@gmail.com" aria-label="Bize email atmak için tıklayın">Bize email atmak için tıklayın</a></p>
                     </div>
 
                     <div class="contact-card">
@@ -330,6 +343,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="particles-config.js"></script>
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 
