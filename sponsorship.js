@@ -434,19 +434,24 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(`${API_URL}/sponsorships`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                // text/plain avoids custom headers that trigger failing CORS preflight while still sending JSON payload
+                headers: { "Content-Type": "text/plain" },
                 body: JSON.stringify(dbPayload)
             });
 
-            const result = await response.json();
+            const result = await response.json().catch(() => ({}));
 
             if (!response.ok || !result.success) {
                 console.error("Veritabanına kayıt başarısız:", result.error || response.statusText);
-            } else {
-                console.log("Veritabanına başarıyla kaydedildi.", result);
+                alert(t('Form kaydedilemedi. Lütfen tekrar deneyin.'));
+                return;
             }
+
+            console.log("Veritabanına başarıyla kaydedildi.", result);
         } catch (err) {
             console.error("Veritabanına gönderim hatası:", err);
+            alert(t('Form kaydedilemedi. Lütfen tekrar deneyin.'));
+            return;
         } finally {
             if (window.turnstile && turnstileWidgetId) {
                 window.turnstile.reset(turnstileWidgetId);
