@@ -418,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Send form data to Cloudflare Worker API
         const API_URL = "https://forum-api.smtaktas123.workers.dev";
 
+        // Keep payload simple to avoid preflight; include token in multiple keys for backend flexibility
         const dbPayload = {
             sponsorship_type: formData.sponsorshipType,
             full_name: formData.fullName,
@@ -428,7 +429,8 @@ document.addEventListener('DOMContentLoaded', function() {
             package: formData.package || null,
             material_description: formData.materialDescription || null,
             material_value: formData.materialValue || null,
-            'cf-turnstile-response': turnstileResponse
+            'cf-turnstile-response': turnstileResponse,
+            turnstile_response: turnstileResponse
         };
 
         try {
@@ -439,10 +441,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(dbPayload)
             });
 
-            const result = await response.json().catch(() => ({}));
+            const result = await response.json().catch(() => ({ success: false, error: 'invalid-json' }));
 
             if (!response.ok || !result.success) {
-                console.error("Veritabanına kayıt başarısız:", result.error || response.statusText);
+                console.error("Veritabanına kayıt başarısız:", {
+                    status: response.status,
+                    statusText: response.statusText,
+                    body: result
+                });
                 alert(t('Form kaydedilemedi. Lütfen tekrar deneyin.'));
                 return;
             }
