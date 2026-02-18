@@ -2,6 +2,17 @@
     list-style: none;
 }
 
+/* Hide scrollbar for all browsers */
+html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
 .nav-link.active {
     color: var(--color-primary);
 }
@@ -437,12 +448,12 @@
 }
 
 .platinum-package {
-    border-color: rgba(229, 228, 226, 0.3);
+    border-color: rgba(59, 130, 246, 0.3);
 }
 
 .platinum-package:hover {
-    border-color: #e5e4e2;
-    box-shadow: 0 20px 50px rgba(229, 228, 226, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
 }
 
 .gold-package {
@@ -497,7 +508,7 @@
 }
 
 .platinum-package .package-icon svg {
-    stroke: #e5e4e2;
+    stroke: #3b82f6;
 }
 
 .gold-package .package-icon svg {
@@ -526,7 +537,7 @@
 }
 
 .platinum-package .package-price {
-    color: #e5e4e2;
+    color: #3b82f6;
 }
 
 .gold-package .package-price {
@@ -570,7 +581,7 @@
 }
 
 .platinum-package .package-features li::before {
-    color: #e5e4e2;
+    color: #3b82f6;
 }
 
 .gold-package .package-features li::before {
@@ -604,7 +615,8 @@
 }
 
 .platinum-package .package-btn {
-    background: linear-gradient(135deg, #e5e4e2, #b8b8b8);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
 }
 
 .gold-package .package-btn {

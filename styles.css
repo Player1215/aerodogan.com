@@ -81,6 +81,16 @@
     box-sizing: border-box;
 }
 
+/* Hide scrollbar for all browsers */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
@@ -204,8 +214,15 @@ body {
 
 .nav-logo {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+}
+
+.logo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .logo-text {
@@ -224,6 +241,29 @@ body {
     color: var(--color-text-muted);
     letter-spacing: 1px;
     margin-top: -2px;
+}
+
+.logo-divider {
+    width: 1px;
+    height: 48px;
+    background: var(--card-border-strong);
+    opacity: 0.85;
+}
+
+.logo-mark {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.25));
+}
+
+.logo-school {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    white-space: normal;
+    line-height: 1.15;
+    max-width: 140px;
 }
 
 .nav-menu-contact {
@@ -570,10 +610,10 @@ body {
     color: #fff;
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.72rem 1rem;
+    padding: 0.9rem 1.5rem;
     border-radius: 999px;
     font-family: var(--font-display);
-    font-size: 0.74rem;
+    font-size: 0.95rem;
     letter-spacing: 0.8px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);

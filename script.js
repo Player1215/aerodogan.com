@@ -106,6 +106,19 @@ function translateAriaLabels() {
     });
 }
 
+function translatePlaceholders() {
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        const original = el.getAttribute('data-i18n-placeholder');
+        if (!original) return;
+
+        if (currentLang === 'en') {
+            el.setAttribute('placeholder', t(original));
+        } else {
+            el.setAttribute('placeholder', original);
+        }
+    });
+}
+
 function applyLanguage(lang) {
     currentLang = lang === 'en' ? 'en' : 'tr';
     localStorage.setItem('lang', currentLang);
@@ -113,6 +126,7 @@ function applyLanguage(lang) {
 
     translateTextNodes();
     translateAriaLabels();
+    translatePlaceholders();
     updateDocumentTitle();
     updateLanguageButton();
 }
