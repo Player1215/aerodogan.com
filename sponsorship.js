@@ -436,12 +436,20 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(`${API_URL}/sponsorships`, {
                 method: "POST",
-                // text/plain avoids custom headers that trigger failing CORS preflight while still sending JSON payload
-                headers: { "Content-Type": "text/plain" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "cf-turnstile-response": turnstileResponse
+                },
                 body: JSON.stringify(dbPayload)
             });
 
-            const result = await response.json().catch(() => ({ success: false, error: 'invalid-json' }));
+            const raw = await response.text();
+            let result;
+            try {
+                result = JSON.parse(raw);
+            } catch {
+                result = { success: false, error: 'non-json', raw };
+            }
 
             if (!response.ok || !result.success) {
                 console.error("Veritabanına kayıt başarısız:", {
@@ -512,4 +520,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+const cors = {
+  'Access-Control-Allow-Origin': 'https://aerodogan.com',
+  'Access-Control-Allow-Methods': 'POST,OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+if (request.method === 'OPTIONS') {
+  return new Response(null, { status: 204, headers: cors });
+}
+
+// … işlem sonrası:
+return new Response(JSON.stringify({ success: true }), {
+  status: 200,
+  headers: { 'Content-Type': 'application/json', ...cors }
 });
