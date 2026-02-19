@@ -91,53 +91,6 @@ body {
     border-radius: 24px;
     padding: 3rem;
     box-shadow: var(--card-shadow-soft);
-    position: relative;
-}
-
-.connection-indicator {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    padding: 0.25rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--card-border);
-    border-radius: 999px;
-}
-
-.indicator-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
-}
-
-.indicator-dot.status-pending {
-    background: #9ca3af;
-    animation: pulse 1.2s ease-in-out infinite;
-}
-
-.indicator-dot.status-success {
-    background: #22c55e;
-}
-
-.indicator-dot.status-error {
-    background: #ef4444;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { opacity: 0.7; }
-}
-
-.turnstile-mount {
-    display: none;
 }
 
 /* Form Steps */
@@ -864,13 +817,6 @@ body {
     .selection-card,
     .package-card {
         padding: 1.5rem 1rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .connection-indicator {
-        position: static;
-        margin-bottom: 1rem;
     }
 }
 

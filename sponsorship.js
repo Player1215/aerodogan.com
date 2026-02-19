@@ -20,15 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let formStarted = false;
     let formSubmitted = false;
 
-    // Turnstile status tracking
-    const connectionDot = document.getElementById('connectionDot');
-    const connectionText = document.getElementById('connectionStatusText');
-    const turnstileMountId = 'turnstile-mount';
-    let turnstileToken = null;
-    let turnstileWidgetId = null;
-    let turnstileStatus = 'pending';
-    const turnstileWaiters = [];
-
     // Get translation function
     const t = (key) => {
         const lang = document.documentElement.lang || 'tr';
@@ -43,91 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!formStarted) {
             formStarted = true;
         }
-    };
-
-    const setConnectionStatus = (state, messageKey, fallback) => {
-        // state: pending | success | error
-        turnstileStatus = state;
-        const message = t(messageKey) || fallback;
-        if (connectionText) connectionText.textContent = message;
-        if (connectionDot) {
-            connectionDot.classList.remove('status-pending', 'status-success', 'status-error');
-            connectionDot.classList.add(`status-${state}`);
-        }
-    };
-
-    const resolveTurnstileWaiters = (token) => {
-        while (turnstileWaiters.length) {
-            const resolver = turnstileWaiters.shift();
-            resolver(token);
-        }
-    };
-
-    const initTurnstile = () => {
-        // Called once the Turnstile script is ready
-        if (!window.turnstile) {
-            setConnectionStatus('pending', 'Cloudflare bağlantısı kuruluyor...', 'Cloudflare bağlantısı kuruluyor...');
-            setTimeout(initTurnstile, 600);
-            return;
-        }
-
-        try {
-            turnstileWidgetId = window.turnstile.render(`#${turnstileMountId}`, {
-                sitekey: '0x4AAAAAACfLCnVLrRcwM0Ws',
-                size: 'invisible',
-                callback: (token) => {
-                    turnstileToken = token;
-                    setConnectionStatus('success', 'Cloudflare bağlantısı kuruldu.', 'Cloudflare bağlantısı kuruldu.');
-                    resolveTurnstileWaiters(token);
-                },
-                'error-callback': () => {
-                    turnstileToken = null;
-                    setConnectionStatus('error', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.');
-                },
-                'timeout-callback': () => {
-                    turnstileToken = null;
-                    setConnectionStatus('error', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.');
-                }
-            });
-
-            setConnectionStatus('pending', 'Cloudflare bağlantısı kuruluyor...', 'Cloudflare bağlantısı kuruluyor...');
-            window.turnstile.execute(turnstileWidgetId);
-        } catch (err) {
-            turnstileToken = null;
-            setConnectionStatus('error', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.');
-            console.error('Turnstile init error:', err);
-        }
-    };
-
-    const ensureTurnstileToken = () => {
-        return new Promise((resolve, reject) => {
-            if (turnstileToken) {
-                return resolve(turnstileToken);
-            }
-
-            if (!window.turnstile || !turnstileWidgetId) {
-                return reject(new Error('turnstile-unavailable'));
-            }
-
-            turnstileWaiters.push(resolve);
-
-            try {
-                setConnectionStatus('pending', 'Cloudflare bağlantısı kuruluyor...', 'Cloudflare bağlantısı kuruluyor...');
-                window.turnstile.execute(turnstileWidgetId);
-            } catch (err) {
-                turnstileWaiters.pop();
-                setConnectionStatus('error', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.');
-                return reject(err);
-            }
-
-            // Timeout guard
-            setTimeout(() => {
-                if (!turnstileToken) {
-                    setConnectionStatus('error', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.', 'Bağlantı sorunu. Lütfen daha sonra tekrar deneyin.');
-                    reject(new Error('turnstile-timeout'));
-                }
-            }, 7000);
-        });
     };
 
     // Add event listeners to detect form interaction
@@ -202,9 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', interceptNavigation);
         }
     });
-
-    // Initialize invisible Turnstile check
-    initTurnstile();
 
     // Check if coming from URL with package parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -386,14 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(t('Lütfen zorunlu alanları doldurun.'));
             return;
         }
-
-        let turnstileResponse = null;
-        try {
-            turnstileResponse = await ensureTurnstileToken();
-        } catch (err) {
-            alert(t('Güvenlik doğrulaması şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.'));
-            return;
-        }
         
         // Collect form data
         const formData = {
@@ -415,10 +310,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Log form data
         console.log('Sponsorship Application:', formData);
 
-        // Send form data to Cloudflare Worker API
-        const API_URL = "https://forum-api.smtaktas123.workers.dev";
+        // Send form data to Cloudflare D1 database
+        const API_URL = "https://api.aerodogan.com"; // Update with your actual API URL
 
-        // Keep payload simple to avoid preflight; include token in multiple keys for backend flexibility
         const dbPayload = {
             sponsorship_type: formData.sponsorshipType,
             full_name: formData.fullName,
@@ -428,51 +322,25 @@ document.addEventListener('DOMContentLoaded', function() {
             notes: formData.notes || null,
             package: formData.package || null,
             material_description: formData.materialDescription || null,
-            material_value: formData.materialValue || null,
-            'cf-turnstile-response': turnstileResponse,
-            turnstile_response: turnstileResponse
+            material_value: formData.materialValue || null
         };
 
         try {
             const response = await fetch(`${API_URL}/sponsorships`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "cf-turnstile-response": turnstileResponse
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dbPayload)
             });
 
-            const raw = await response.text();
-            let result;
-            try {
-                result = JSON.parse(raw);
-            } catch {
-                result = { success: false, error: 'non-json', raw };
-            }
+            const result = await response.json();
 
             if (!response.ok || !result.success) {
-                console.error("Veritabanına kayıt başarısız:", {
-                    status: response.status,
-                    statusText: response.statusText,
-                    body: result
-                });
-                alert(t('Form kaydedilemedi. Lütfen tekrar deneyin.'));
-                return;
+                console.error("Veritabanına kayıt başarısız:", result.error || response.statusText);
+            } else {
+                console.log("Veritabanına başarıyla kaydedildi.", result);
             }
-
-            console.log("Veritabanına başarıyla kaydedildi.", result);
         } catch (err) {
             console.error("Veritabanına gönderim hatası:", err);
-            alert(t('Form kaydedilemedi. Lütfen tekrar deneyin.'));
-            return;
-        } finally {
-            if (window.turnstile && turnstileWidgetId) {
-                window.turnstile.reset(turnstileWidgetId);
-                turnstileToken = null;
-                setConnectionStatus('pending', 'Cloudflare bağlantısı kuruluyor...', 'Cloudflare bağlantısı kuruluyor...');
-                window.turnstile.execute(turnstileWidgetId);
-            }
         }
         
         // Mark form as submitted to prevent warning
@@ -520,20 +388,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
-
-const cors = {
-  'Access-Control-Allow-Origin': 'https://aerodogan.com',
-  'Access-Control-Allow-Methods': 'POST,OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
-};
-
-if (request.method === 'OPTIONS') {
-  return new Response(null, { status: 204, headers: cors });
-}
-
-// … işlem sonrası:
-return new Response(JSON.stringify({ success: true }), {
-  status: 200,
-  headers: { 'Content-Type': 'application/json', ...cors }
 });

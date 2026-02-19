@@ -8,6 +8,8 @@ window.I18N_TRANSLATIONS = {
         },
         texts: {
             'Teknoloji Takımları': 'Technology Teams',
+            'Doğan Cüceloğlu': 'Dogan Cuceloglu',
+            'Fen Lisesi': 'Science High School',
             'Doğan Cüceloğlu Fen Lisesi': 'Dogan Cuceloglu Science High School',
             'Aerodoğan': 'Aerodogan',
             'Hidrodoğan': 'Hidrodogan',

@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="contact.css">
     <link rel="stylesheet" href="sponsorship.css">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <script>
         (function () {
@@ -50,13 +49,16 @@
         <div class="nav-container">
             <a href="index.html" class="logo-link" id="navHomeLink">
                 <div class="nav-logo">
-                    <div class="logo-block">
-                        <span class="logo-text">DCFL</span>
-                        <span class="logo-subtitle" data-i18n="Teknoloji Takımları">Teknoloji Takımları</span>
+                    <span class="logo-text">DCFL</span>
+                    <span class="logo-subtitle">Teknoloji Takımları</span>
+                </div>
+                <div class="nav-logo-divider"></div>
+                <div class="nav-logo-school">
+                    <img src="images/dcfl.png" alt="DCFL Logo" class="nav-school-img">
+                    <div class="nav-school-text">
+                        <span>Doğan Cüceloğlu</span>
+                        <span>Fen Lisesi</span>
                     </div>
-                    <span class="logo-divider" aria-hidden="true"></span>
-                    <img src="images/dcfl.png" class="logo-mark" alt="DCFL amblemi">
-                    <span class="logo-school" data-i18n="Doğan Cüceloğlu Fen Lisesi">Doğan Cüceloğlu Fen Lisesi</span>
                 </div>
             </a>
             <ul class="nav-menu-contact">
@@ -81,12 +83,6 @@
         <section class="form-section">
             <div class="form-container">
                 <form id="sponsorshipForm" class="sponsorship-form">
-
-                    <div class="connection-indicator" id="connectionIndicator" aria-live="polite">
-                        <span class="indicator-dot status-pending" id="connectionDot" aria-hidden="true"></span>
-                    </div>
-
-                    <div id="turnstile-mount" class="turnstile-mount" aria-hidden="true"></div>
                     
                     <!-- Step 1: Sponsorship Type Selection -->
                     <div class="form-step active" id="step-type">
