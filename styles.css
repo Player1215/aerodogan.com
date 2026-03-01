@@ -551,12 +551,7 @@ body {
 }
 
 /* Subtle sheen effect */
-.interactive-card::before,
-.event-slide::before,
-.project-item::before,
-.achievement-item::before,
-.featured-achievement::before,
-.vehicle-item::before {
+.interactive-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -575,12 +570,7 @@ body {
     z-index: 3;
 }
 
-.interactive-card:hover::before,
-.event-slide:hover::before,
-.project-item:hover::before,
-.achievement-item:hover::before,
-.featured-achievement:hover::before,
-.vehicle-item:hover::before {
+.interactive-card:hover::before {
     opacity: 1;
     animation: sheenSweep 0.85s ease;
 }
