@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             buttons.next.classList.add('hidden');
             buttons.submit.classList.remove('hidden');
+            document.getElementById('kvkkConsent').classList.remove('hidden');
             
         } else if (currentStep === 'material') {
             const materialDesc = document.getElementById('materialDescription').value;
@@ -232,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             buttons.next.classList.add('hidden');
             buttons.submit.classList.remove('hidden');
+            document.getElementById('kvkkConsent').classList.remove('hidden');
         }
         
         // Scroll to top of form smoothly
@@ -266,6 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             buttons.next.classList.remove('hidden');
             buttons.submit.classList.add('hidden');
+            document.getElementById('kvkkConsent').classList.add('hidden');
+            document.getElementById('kvkkCheckbox').checked = false;
         }
         
         // Scroll to top of form smoothly
@@ -281,6 +285,16 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        // Validate KVKK consent
+        const kvkkCheckbox = document.getElementById('kvkkCheckbox');
+        const kvkkError = document.getElementById('kvkkError');
+        if (!kvkkCheckbox.checked) {
+            kvkkError.classList.remove('hidden');
+            kvkkCheckbox.closest('.kvkk-consent').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return;
+        }
+        kvkkError.classList.add('hidden');
+
         // Validate contact information
         const fullName = document.getElementById('fullName').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -367,6 +381,35 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
     }
+
+    // KVKK Modal Logic
+    function openKvkkModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeKvkkModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('kvkkOpenBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        openKvkkModal('kvkkModal');
+    });
+    document.getElementById('acikRizaOpenBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        openKvkkModal('acikRizaModal');
+    });
+    document.getElementById('kvkkModalClose').addEventListener('click', function() { closeKvkkModal('kvkkModal'); });
+    document.getElementById('kvkkModalAccept').addEventListener('click', function() { closeKvkkModal('kvkkModal'); });
+    document.getElementById('acikRizaModalClose').addEventListener('click', function() { closeKvkkModal('acikRizaModal'); });
+    document.getElementById('acikRizaModalAccept').addEventListener('click', function() { closeKvkkModal('acikRizaModal'); });
+
+    ['kvkkModal', 'acikRizaModal'].forEach(function(id) {
+        document.getElementById(id).addEventListener('click', function(e) {
+            if (e.target === this) closeKvkkModal(id);
+        });
+    });
 
     // Phone number formatting (optional enhancement)
     const phoneInput = document.getElementById('phone');
