@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const kvkkError = document.getElementById('kvkkError');
         if (!kvkkCheckbox.checked) {
             kvkkError.classList.remove('hidden');
-            kvkkCheckbox.closest('.kvkk-consent').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById('kvkkConsent').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             return;
         }
         kvkkError.classList.add('hidden');
