@@ -211,7 +211,6 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-right: auto;
 }
 
 .nav-logo-divider {
@@ -226,6 +225,13 @@ body {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+}
+
+.nav-aerodogan-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .nav-school-img {
@@ -2642,5 +2648,127 @@ h2.footer-logo {
     .event-btn {
         padding: 0.58rem 0.9rem;
         font-size: 0.78rem;
+    }
+}
+
+/* About Section Styles */
+.about-section {
+    padding: 3rem clamp(0.8rem, 2vw, 2rem);
+    text-align: center;
+    position: relative;
+    margin: 2rem clamp(0.8rem, 2vw, 2rem);
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-secondary-rgb), 0.08) 100%);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+    border-radius: 1rem;
+    box-shadow:
+        0 0 60px rgba(var(--color-primary-rgb), 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+.about-intro {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 1.5rem auto;
+    max-width: 800px;
+    color: var(--color-text-muted);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-mission,
+.about-vision {
+    text-align: left;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(var(--surface-rgb), 0.7) 0%, rgba(var(--surface-rgb), 0.5) 100%);
+    border: 1.5px solid rgba(var(--color-primary-rgb), 0.3);
+    border-radius: 0.75rem;
+    transition: all var(--transition-fast);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-mission::before,
+.about-vision::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.5), transparent);
+}
+
+.about-mission:hover,
+.about-vision:hover {
+    background: linear-gradient(135deg, rgba(var(--surface-rgb), 0.9) 0%, rgba(var(--surface-rgb), 0.7) 100%);
+    border-color: var(--color-primary);
+    box-shadow: 0 12px 48px rgba(var(--color-primary-rgb), 0.3);
+    transform: translateY(-2px);
+}
+
+.about-mission h3,
+.about-vision h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-mission p,
+.about-vision p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .about-section {
+        margin: 2rem 1rem;
     }
 }
